@@ -4,7 +4,7 @@ Project: test
 File Created: Saturday, 17th April 2021 11:17:10 am
 Author: Ananda Yudhistira (anandabayu12@gmail.com)
 -----
-Last Modified: Saturday, 17th April 2021 11:42:45 am
+Last Modified: Saturday, 17th April 2021 12:14:07 pm
 Modified By: Ananda Yudhistira (anandabayu12@gmail.com>)
 -----
 Copyright 2021 Ananda Yudhistira, FAN Integrasi Teknologi, PT
@@ -26,6 +26,13 @@ class ModelTests(TestCase):
 
         self.assertEqual(user.email, email)
         self.assertTrue(user.check_password(password))
+
+    def test_new_user_email_normalized(self):
+        """Test the email for a new user is normalized"""
+        email = 'test@LONDONAPPDEV.COM'
+        user = get_user_model().objects.create_user(email, 'test123')
+
+        self.assertEqual(user.email, email.lower())
 
     def test_create_user_without_email(self):
         with self.assertRaises(ValueError):
