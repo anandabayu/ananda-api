@@ -4,7 +4,7 @@ Project: user
 File Created: Monday, 19th April 2021 12:29:55 pm
 Author: Ananda Yudhistira (anandabayu12@gmail.com)
 -----
-Last Modified: Monday, 19th April 2021 1:15:38 pm
+Last Modified: Monday, 19th April 2021 1:27:22 pm
 Modified By: Ananda Yudhistira (anandabayu12@gmail.com>)
 -----
 Copyright 2021 Ananda Yudhistira, FAN Integrasi Teknologi, PT
@@ -30,6 +30,17 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         """Create a new user"""
         return get_user_model().objects.create_user(**validated_data)
+
+    def update(self, instance, validated_data):
+        """Update a user, setting the password correctly and return it"""
+        password = validated_data.pop('password', None)
+        user = super().update(instance, validated_data)
+
+        if password:
+            user.set_password(password)
+            user.save()
+
+        return user
 
 
 class AuthTokenSerializer(serializers.Serializer):
