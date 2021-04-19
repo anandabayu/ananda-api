@@ -4,7 +4,7 @@ Project: test
 File Created: Monday, 19th April 2021 12:11:58 pm
 Author: Ananda Yudhistira (anandabayu12@gmail.com)
 -----
-Last Modified: Monday, 19th April 2021 1:22:12 pm
+Last Modified: Monday, 19th April 2021 1:40:48 pm
 Modified By: Ananda Yudhistira (anandabayu12@gmail.com>)
 -----
 Copyright 2021 Ananda Yudhistira, FAN Integrasi Teknologi, PT
@@ -85,8 +85,8 @@ class PublicUserApiTest(TestCase):
 
     def test_create_token_invalid_credentials(self):
         """Test that token is not created if invalid credentials are given"""
-        create_user(email='test@londonappdev.com', password="testpass")
-        payload = {'email': 'test@londonappdev.com', 'password': 'wrong'}
+        create_user(email='test@fanintek.com', password="testpass")
+        payload = {'email': 'test@fanintek.com', 'password': 'wrong'}
         res = self.client.post(TOKEN_URL, payload)
 
         self.assertNotIn('token', res.data)
@@ -94,7 +94,7 @@ class PublicUserApiTest(TestCase):
 
     def test_create_token_no_user(self):
         """Test that token is not created if user doesn't exist"""
-        payload = {'email': 'test@londonappdev.com', 'password': 'testpass'}
+        payload = {'email': 'test@fanintek.com', 'password': 'testpass'}
         res = self.client.post(TOKEN_URL, payload)
 
         self.assertNotIn('token', res.data)
@@ -118,7 +118,7 @@ class PrivateUserApiTests(TestCase):
 
     def setUp(self):
         self.user = create_user(
-            email='test@londonappdev.com',
+            email='test@fanintek.com',
             password='testpass',
             name='name'
         )
